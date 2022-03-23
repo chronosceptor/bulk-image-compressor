@@ -2,8 +2,13 @@ import { globby } from "globby";
 import sharp from "sharp";
 import fs from "fs";
 
+// select input folder
 const input = "./input";
+
+// select output folder
 const output = "./output";
+
+// select file  extension output
 const extensionOutput = ".webp";
 
 const getFiles = async () => {
@@ -28,13 +33,29 @@ const sharpImages = async (files) => {
         }
 
         await sharp(files[i])
-            .jpeg({ quality: 50, mozjpeg: true, progressive: true, force: false })
-            .png({ quality: 50, compressionLevel: 1, progressive: true, force: false })
-            .webp({ quality: 50, lossless: true, progressive: true, force: false })
+            // more output options: https://sharp.pixelplumbing.com/api-output
+            .jpeg({
+                quality: 50,
+                mozjpeg: true,
+                progressive: true,
+                force: false,
+            })
+            .png({
+                quality: 50,
+                compressionLevel: 1,
+                progressive: true,
+                force: false,
+            })
+            .webp({
+                quality: 50,
+                lossless: true,
+                progressive: true,
+                force: false,
+            })
             .resize(1920, 1920, {
                 fit: sharp.fit.inside,
-                withoutEnlargement: true
-              })
+                withoutEnlargement: true,
+            })
 
             // keep extension
             .toFile(`${output}/${dir}/${image}`);
