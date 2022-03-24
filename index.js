@@ -9,7 +9,7 @@ const input = "./input";
 const output = "./output";
 
 // select file  extension output
-const extensionOutput = ".jpg";
+const extensionOutput = ".webp";
 
 const getFiles = async () => {
     const paths = await globby(input, {
@@ -45,6 +45,7 @@ const sharpImages = async (files) => {
                 quality: 75,
                 compressionLevel: 9,
                 force: false,
+                colors: 256,
             })
             .webp({
                 quality: 75,
