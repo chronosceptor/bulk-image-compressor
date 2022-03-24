@@ -9,7 +9,7 @@ const input = "./input";
 const output = "./output";
 
 // select file  extension output
-const extensionOutput = ".webp";
+const extensionOutput = ".jpg";
 
 const getFiles = async () => {
     const paths = await globby(input, {
@@ -35,21 +35,20 @@ const sharpImages = async (files) => {
         await sharp(files[i])
             // more output options: https://sharp.pixelplumbing.com/api-output
             .jpeg({
-                quality: 50,
-                mozjpeg: true,
                 progressive: true,
+                quality: 75,
+                mozjpeg: true,
                 force: false,
             })
             .png({
-                quality: 50,
-                compressionLevel: 1,
                 progressive: true,
+                quality: 75,
+                compressionLevel: 9,
                 force: false,
             })
             .webp({
-                quality: 50,
-                lossless: true,
-                progressive: true,
+                quality: 75,
+                lossless: false,
                 force: false,
             })
             .resize(1920, 1920, {
@@ -58,10 +57,10 @@ const sharpImages = async (files) => {
             })
 
             // keep extension
-            .toFile(`${output}/${dir}/${image}`);
+            // .toFile(`${output}/${dir}/${image}`);
 
             // change extension
-            // .toFile(`${output}/${dir}/${removeImageExt[0]}${extensionOutput}`);
+            .toFile(`${output}/${dir}/${removeImageExt[0]}${extensionOutput}`);
     }
 };
 
