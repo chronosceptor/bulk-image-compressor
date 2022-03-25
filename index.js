@@ -21,8 +21,8 @@ const getFiles = async () => {
 };
 
 const sharpImages = async (files) => {
-    for (let i = 0; i < files.length; i++) {
-        const item = files[i].split("/");
+    files.forEach(async (file) => {
+        const item = file.split("/");
         const image = item.pop();
         const removeImageExt = image.split(".");
         item.shift();
@@ -32,7 +32,7 @@ const sharpImages = async (files) => {
             fs.mkdirSync(`${output}/${dir}`, { recursive: true });
         }
 
-        await sharp(files[i])
+        await sharp(file)
             // more output options: https://sharp.pixelplumbing.com/api-output
             .jpeg({
                 progressive: true,
@@ -62,12 +62,16 @@ const sharpImages = async (files) => {
 
             // change extension
             .toFile(`${output}/${dir}/${removeImageExt[0]}${extensionOutput}`);
-    }
+            console.log(file);
+    });
 };
 
 getFiles()
     .then((files) => {
         return sharpImages(files);
+    })
+    .then(() => {
+        return console.log("finish");
     })
     .catch((e) => {
         throw e;
