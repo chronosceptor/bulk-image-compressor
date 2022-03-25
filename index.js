@@ -55,7 +55,7 @@ async function compressImage(file) {
         })
 
         // keep extension
-        // .toFile(`${output}/${image}`);
+        // .toFile(`${output}/${dir}/${image}`);
 
         // use extensionOutput
         .toFile(`${output}/${dir}/${removeImageExt[0]}${extensionOutput}`);
@@ -69,7 +69,7 @@ const imageCompressor = async () => {
     Promise.all(
         files.map(async (file) => {
             const file1 = await compressImage(file);
-            console.log(file1);
+            console.log(`${file1} ✅`);
         })
     ).then(() => {
         console.log("complete 🏁");
