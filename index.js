@@ -49,6 +49,7 @@ async function compressImage(file) {
             lossless: false,
             force: false,
         })
+        .rotate()
         .resize(1920, 1920, {
             fit: sharp.fit.inside,
             withoutEnlargement: true,
